@@ -154,14 +154,10 @@ pub fn unmap_page_table(asid: asid_t, vaddr: vptr_t, pt: &mut pte_t) {
     pt.unmap_page_table(asid, vaddr);
 }
 
-#[no_mangle]
-#[link_section = ".boot.text"]
 pub fn create_unmapped_it_frame_cap(pptr: pptr_t, use_large: bool) -> cap_t {
     return create_it_frame_cap(pptr, 0, asidInvalid, use_large);
 }
 
-#[no_mangle]
-#[link_section = ".boot.text"]
 pub fn create_it_frame_cap(pptr: pptr_t, vptr: vptr_t, asid: asid_t, use_large: bool) -> cap_t {
     let mut frame_size = ARM_Small_Page;
     if use_large {
@@ -177,8 +173,6 @@ pub fn create_it_frame_cap(pptr: pptr_t, vptr: vptr_t, asid: asid_t, use_large: 
     )
 }
 
-#[no_mangle]
-#[link_section = ".boot.text"]
 pub fn activate_kernel_vspace() {
     unsafe {
         clean_invalidate_l1_caches();
